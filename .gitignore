@@ -1,3 +1,4 @@
 /target
-.idea
-bind/ngx_wasi_core.rs
+/.idea
+/bind/ngx_wasi_core.rs
+/wit/deps

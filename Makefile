@@ -4,6 +4,8 @@ ifneq (clean, $(MAKECMDGOALS))
 	endif
 endif
 
+all: bind/ngx_wasi_core.rs wit/deps
+
 RBG=bindgen
 bind/ngx_wasi_core.rs: bind/ngx_wasi_core_inc.h
 	$(RBG) $< -- -I$(ANGIE_WASM_SDK)/include > $@

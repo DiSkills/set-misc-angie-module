@@ -1,0 +1,3 @@
+interface base64 {
+    encode: func(call-env: s32) -> s32;
+}

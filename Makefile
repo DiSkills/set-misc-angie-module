@@ -18,10 +18,13 @@ SRCS=$(shell find src -name "*.rs")
 WITS=$(shell find wit -name "*.wit")
 
 .PHONY: all
-all: $(BIN)
+all: set_misc_angie_module.wasm
 
 $(BIN): $(SRCS) $(WITS) bind/ngx_wasi_core.rs wit/deps
 	cargo rustc --target $(TARGET) --release -- $(RUSTFLAGS)
+
+set_misc_angie_module.wasm: $(BIN)
+	install -v $< $@
 
 RBG=bindgen
 bind/ngx_wasi_core.rs: bind/ngx_wasi_core_inc.h
@@ -33,5 +36,6 @@ wit/deps:
 .PHONY: clean
 clean:
 	@cargo clean
+	@rm -f set_misc_angie_module.wasm
 	@rm -f wit/deps
 	@rm -f bind/ngx_wasi_core.rs

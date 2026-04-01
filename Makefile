@@ -2,9 +2,26 @@ ifneq (clean, $(MAKECMDGOALS))
 	ifeq ($(ANGIE_WASM_SDK),)
         $(error "please set ANGIE_WASM_SDK environment variable to continue")
 	endif
+    ifeq ($(WASI_SDK),)
+        $(error "please set WASI_SDK environment variable to continue")
+    endif
 endif
 
-all: bind/ngx_wasi_core.rs wit/deps
+TARGET=wasm32-wasip1
+BIN=target/$(TARGET)/release/set_misc_angie_module.wasm
+WSDKLIBS=$(WASI_SDK)/share/wasi-sysroot/lib/wasm32-wasip1
+RUSTFLAGS=-Zwasi-exec-model=reactor \
+		  -lngx_wasi_core -L$(ANGIE_WASM_SDK)/lib \
+		  -lc++ -L$(WSDKLIBS) -lc++abi
+
+SRCS=$(shell find src -name "*.rs")
+WITS=$(shell find wit -name "*.wit")
+
+.PHONY: all
+all: $(BIN)
+
+$(BIN): $(SRCS) $(WITS) bind/ngx_wasi_core.rs wit/deps
+	cargo rustc --target $(TARGET) --release -- $(RUSTFLAGS)
 
 RBG=bindgen
 bind/ngx_wasi_core.rs: bind/ngx_wasi_core_inc.h
@@ -15,5 +32,6 @@ wit/deps:
 
 .PHONY: clean
 clean:
+	@cargo clean
 	@rm -f wit/deps
 	@rm -f bind/ngx_wasi_core.rs

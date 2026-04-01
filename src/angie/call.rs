@@ -19,3 +19,14 @@ pub fn init_app(call_env: i32, argv: bool) -> Result<ngx_wasi_app_state_t, i32> 
         Err(err)
     }
 }
+
+pub fn save_result(app: ngx_wasi_app_state_t, buf: Vec<u8>) -> i32 {
+    let mut b = exports_ngx_wasi_call_res_t {
+        ptr: buf.as_ptr() as *mut u8, len: buf.len(),
+    };
+    let app_pointer = &app as *const _;
+
+    unsafe {
+        exports_ngx_wasi_call_save_result(app_pointer as *mut _, &mut b)
+    }
+}

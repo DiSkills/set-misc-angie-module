@@ -20,6 +20,10 @@ WITS=$(shell find wit -name "*.wit")
 .PHONY: all
 all: set_misc_angie_module.wasm
 
+.PHONY: test
+test: all
+	make -C t test
+
 $(BIN): $(SRCS) $(WITS) bind/ngx_wasi_core.rs wit/deps
 	cargo rustc --target $(TARGET) --release -- $(RUSTFLAGS)
 
@@ -39,3 +43,4 @@ clean:
 	@rm -f set_misc_angie_module.wasm
 	@rm -f wit/deps
 	@rm -f bind/ngx_wasi_core.rs
+	@make -C t clean

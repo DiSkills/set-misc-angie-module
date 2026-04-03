@@ -3,3 +3,4 @@
 /bind/ngx_wasi_core.rs
 /wit/deps
 /set_misc_angie_module.wasm
+/t/objs

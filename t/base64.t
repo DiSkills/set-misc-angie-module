@@ -51,6 +51,7 @@ http {
     %%TEST_GLOBALS_HTTP%%
 
     wasm_var misc "angie:set-misc/base64#encode" $encoded $arg_s;
+    wasm_var misc "angie:set-misc/base64#decode" $decoded $arg_s;
 
     server {
         listen 127.0.0.1:8080;
@@ -58,19 +59,21 @@ http {
         location /encode {
             return 200 $encoded;
         }
+
+        location /decode {
+            return 200 $decoded;
+        }
     }
 }
 
 EOF
 
-$t->run()->plan(1);
+$t->run()->plan(2);
 
 ###############################################################################
 
-my $body = http_get_body("/encode?s=abcde");
-my $expect = 'YWJjZGU=';
-
-is($body, $expect, "argument encoded");
+is(http_get_body("/encode?s=abcde"), "YWJjZGU=", "argument encoded");
+is(http_get_body("/decode?s=YWJjZGU="), "abcde", "argument decoded");
 
 ###############################################################################
 

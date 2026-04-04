@@ -15,8 +15,21 @@ impl exports::angie::set_misc::base64::Guest for Entry {
     fn encode(call_env: i32) -> i32 {
         common::call_single_argument_variable_handler(call_env, encode)
     }
+
+    fn decode(call_env: i32) -> i32 {
+        common::call_single_argument_variable_handler(call_env, decode)
+    }
 }
 
 fn encode(argument: String) -> Result<String, String> {
     Ok(STANDARD.encode(argument))
+}
+
+fn decode(argument: String) -> Result<String, String> {
+    let decoded = match STANDARD.decode(argument) {
+        Ok(v) => v, Err(_) => return Err(String::from("error: invalid base64 string")),
+    };
+    match String::from_utf8(decoded) {
+        Ok(v) => Ok(v), Err(err) => panic!("Invalid UTF-8 sequence: {}", err),
+    }
 }

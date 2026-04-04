@@ -8,7 +8,7 @@ include!("../bind/ngx_wasi_core.rs");
 use crate::angie::{call, log};
 
 pub fn call_single_argument_variable_handler(
-    call_env: i32, handler: fn(String) -> Result<String, i32>,
+    call_env: i32, handler: fn(String) -> Result<String, String>,
 ) -> i32 {
     let app = match call::init_app(call_env, true) {
         Ok(v) => v, Err(err) => return err,
@@ -29,7 +29,11 @@ pub fn call_single_argument_variable_handler(
     }.to_string();
 
     let result = match handler(argument) {
-        Ok(v) => v, Err(err) => return err,
+        Ok(v) => v,
+        Err(err) => {
+            log::log_error(app.log, log::Level::Err as u8, 0, err);
+            return -1;
+        },
     };
     call::save_result(app, result.as_bytes().to_vec())
 }

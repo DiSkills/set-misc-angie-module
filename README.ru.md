@@ -1,4 +1,14 @@
 # Set Misc Angie Module
+[![build-and-test.yml](https://github.com/DiSkills/set-misc-angie-module/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/DiSkills/set-misc-angie-module/actions/workflows/build-and-test.yml)
+
+[![Angie](https://git.angie.software/web-server/angie/raw/branch/main/misc/logo.gif)](https://en.angie.software)
+
+![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=for-the-badge&logo=WebAssembly&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+
+---
 
 Неполный аналог [ngx_set_misc](https://github.com/openresty/set-misc-nginx-module) для веб-сервера Angie.
 Модуль использует расширение [WebAssembly](https://habr.com/ru/articles/898022).
@@ -29,8 +39,8 @@
 ## Сборка
 
 1. Установить следующие переменные окружения:
-    * `ANGIE_WASM_SDK` - путь к каталогу Angie WASM SDK (соответствует значению ключа `--prefix` при сборки SDK).
-    * `WASI_SDK` - путь к каталогу WASI SDK (соответствует значению ключа `--wasi-sdk` при сборки SDK).
+    * `ANGIE_WASM_SDK` - путь к каталогу Angie WASM SDK (соответствует значению ключа `--prefix` при сборке SDK).
+    * `WASI_SDK` - путь к каталогу WASI SDK (соответствует значению ключа `--wasi-sdk` при сборке SDK).
 2. Запустить команду сборки:
 
         make

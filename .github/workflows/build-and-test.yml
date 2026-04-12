@@ -1,0 +1,18 @@
+name: build-and-test.yml
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container:
+      image: diskills/set-misc-builder:latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build
+        run: make
+      - name: Test
+        run: make test

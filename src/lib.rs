@@ -8,6 +8,7 @@ mod base64;
 mod base64url;
 mod common;
 mod hash;
+mod hex;
 
 struct Entry;
 export!(Entry);

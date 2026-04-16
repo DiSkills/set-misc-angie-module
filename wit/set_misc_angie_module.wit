@@ -6,4 +6,5 @@ world angie-set-misc {
     export base64url;
     export hash;
     export hex;
+    export local;
 }

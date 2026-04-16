@@ -1,0 +1,3 @@
+interface local {
+    today: func(call-env: s32) -> s32;
+}

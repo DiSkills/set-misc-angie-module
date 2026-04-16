@@ -1,0 +1,4 @@
+interface hash {
+    sha1: func(call-env: s32) -> s32;
+    md5: func(call-env: s32) -> s32;
+}

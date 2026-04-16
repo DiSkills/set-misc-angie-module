@@ -7,6 +7,7 @@ mod angie;
 mod base64;
 mod base64url;
 mod common;
+mod hash;
 
 struct Entry;
 export!(Entry);

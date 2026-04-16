@@ -50,8 +50,8 @@ wasm_modules {
 http {
     %%TEST_GLOBALS_HTTP%%
 
-    wasm_var misc "angie:set-misc/base64#encode" $encoded $arg_s;
-    wasm_var misc "angie:set-misc/base64#decode" $decoded $arg_s;
+    wasm_var misc "angie:set-misc/base64url#encode" $encoded $arg_s;
+    wasm_var misc "angie:set-misc/base64url#decode" $decoded $arg_s;
 
     server {
         listen 127.0.0.1:8080;
@@ -72,8 +72,8 @@ $t->run()->plan(2);
 
 ###############################################################################
 
-is(http_get_body("/encode?s=abcde"), "YWJjZGU=", "base64 encode");
-is(http_get_body("/decode?s=YWJjZGU="), "abcde", "base64 decode");
+is(http_get_body("/encode?s=?b><d?"), "P2I-PGQ_", "base64url encode");
+is(http_get_body("/decode?s=P2I-PGQ_"), "?b><d?", "base64url decode");
 
 ###############################################################################
 

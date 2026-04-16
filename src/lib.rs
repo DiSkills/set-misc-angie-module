@@ -5,6 +5,7 @@ wit_bindgen::generate!({
 
 mod angie;
 mod base64;
+mod base64url;
 mod common;
 
 struct Entry;

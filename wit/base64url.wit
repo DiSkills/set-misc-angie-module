@@ -1,0 +1,4 @@
+interface base64url {
+    encode: func(call-env: s32) -> s32;
+    decode: func(call-env: s32) -> s32;
+}

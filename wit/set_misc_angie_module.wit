@@ -3,5 +3,6 @@ package angie:set-misc;
 world angie-set-misc {
     import ngx:wasi/log;
     export base64;
+    export base64url;
     export hash;
 }

@@ -42,3 +42,19 @@ pub fn call_single_argument_variable_handler(
     };
     call::save_result(app, result.as_bytes().to_vec())
 }
+
+pub fn call_no_argument_variable_handler(
+    call_env: i32, handler: fn() -> Result<String, HandlerError>,
+) -> i32 {
+    let app = match call::init_app(call_env, false) {
+        Ok(v) => v, Err(err) => return err,
+    };
+    let result = match handler() {
+        Ok(v) => v,
+        Err(err) => {
+            log::log_error(app.log, log::Level::Err as u8, 0, err.message);
+            return err.code;
+        },
+    };
+    call::save_result(app, result.as_bytes().to_vec())
+}

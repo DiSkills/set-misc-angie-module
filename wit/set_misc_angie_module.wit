@@ -8,4 +8,5 @@ world angie-set-misc {
     export hex;
     export local;
     export random;
+    export rotate;
 }

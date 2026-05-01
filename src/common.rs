@@ -8,7 +8,7 @@ pub struct HandlerError {
 pub fn call_single_argument_variable_handler(
     call_env: i32, handler: fn(String) -> Result<String, HandlerError>,
 ) -> i32 {
-    let app = match call::init_app(call_env, true) {
+    let mut app = match call::init_app(call_env, true) {
         Ok(v) => v, Err(err) => return err,
     };
 
@@ -19,7 +19,8 @@ pub fn call_single_argument_variable_handler(
         );
         return -1;
     }
-    let argument = app.argv.get(0).unwrap().to_string();
+    // app.argv has been moved, so it becomes empty
+    let argument = app.argv.pop().unwrap();
 
     let result = match handler(argument) {
         Ok(v) => v,

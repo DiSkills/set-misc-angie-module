@@ -7,4 +7,5 @@ world angie-set-misc {
     export hash;
     export hex;
     export local;
+    export random;
 }

@@ -1,0 +1,3 @@
+interface random {
+    range: func(call-env: s32) -> s32;
+}

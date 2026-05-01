@@ -11,6 +11,7 @@ mod datetime;
 mod hash;
 mod hex;
 mod random;
+mod rotate;
 
 struct Entry;
 export!(Entry);

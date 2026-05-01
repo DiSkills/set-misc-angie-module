@@ -5,6 +5,25 @@ pub struct HandlerError {
     pub code: i32,
 }
 
+pub fn call_variable_handler(
+    call_env: i32, handler: fn(Vec<String>) -> Result<String, HandlerError>,
+) -> i32 {
+    let mut app = match call::init_app(call_env, true) {
+        Ok(v) => v, Err(err) => return err,
+    };
+    // app.argv has been moved, so it becomes empty
+    let arguments = std::mem::take(&mut app.argv);
+
+    let result = match handler(arguments) {
+        Ok(v) => v,
+        Err(err) => {
+            log::log_error(app.log, log::Level::Err as u8, 0, err.message);
+            return err.code;
+        },
+    };
+    call::save_result(app, result.as_bytes().to_vec())
+}
+
 pub fn call_single_argument_variable_handler(
     call_env: i32, handler: fn(String) -> Result<String, HandlerError>,
 ) -> i32 {

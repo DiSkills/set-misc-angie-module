@@ -10,6 +10,7 @@ mod common;
 mod datetime;
 mod hash;
 mod hex;
+mod random;
 
 struct Entry;
 export!(Entry);
